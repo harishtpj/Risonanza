@@ -76,12 +76,11 @@ def analysis_page():
             if st.button("🚀 Analyze Stress", type="primary", use_container_width=True):
                 with st.spinner("Predicing emotion..."):
                     audio_file.seek(0)
-                    pred,stresslvl = model.predict(audio_file)
+                    pred, stresslvl = model.predict(audio_file)
 
                 st.subheader("📈 Results")
                 st.success(f"Prediction: {EMOJI_MAP[pred]} {pred}")
-                st.success(f"Stress Level: {stresslvl}%")
-                if stresslvl > 50:
+                if stresslvl > 50 and pred not in ['Neutral', 'Calm', 'Happy', 'Surprise']:
                     st.warning("⚠️ High stress detected. Consider relaxation techniques.")
                 else:
                     st.info("😊 Low stress level. Keep up the good mood!")
@@ -119,10 +118,14 @@ def demo_page():
         if st.button("🚀 Analyze Stress"):
             with st.spinner("Predicting Stress"):
                 audio_value.seek(0)
-                pred = model.predict(audio_value)
+                pred, stresslvl = model.predict(audio_value)
 
             st.subheader("📈 Results")
             st.success(f"Prediction: {EMOJI_MAP[pred]} {pred}")
+            if stresslvl > 50 and pred not in ['Neutral', 'Calm', 'Happy', 'Surprise']:
+                st.warning("⚠️ High stress detected. Consider relaxation techniques.")
+            else:
+                st.info("😊 Low stress level. Keep up the good mood!")
 
 
 
@@ -163,11 +166,11 @@ def about_page():
     st.divider()
     st.subheader("Technical Features")
     st.write("""
-                 -Lightweight Machine Learning: Uses feature extraction , classical ML models instead of heavy deep learning.
-                 -Low Resource Requirements: Runs efficiently on normal hardware, making it suitable for edge devices (robots, IoT, etc.).
-                 -Privacy-Friendly: Unlike OpenAI/Google systems, no server storage is needed — all processing is local.
-                 -Open Source & Free: No licensing fees, making it easy to integrate into research, education, or commercial prototypes.
-                 -Scalable Design: Easy to plug into robotics, security systems, or product feedback tools because of its modular architecture.""")
+    - **Lightweight Machine Learning**: Uses feature extraction , classical ML models instead of heavy deep learning.
+    - **Low Resource Requirements**: Runs efficiently on normal hardware, making it suitable for edge devices (robots, IoT, etc.).
+    - **Privacy-Friendly**: Unlike modern corporate systems, no server storage is needed — all processing is local.
+    - **Open Source & Free**: No licensing fees, making it easy to integrate into research, education, or commercial prototypes.
+    - **Scalable Design**: Easy to plug into robotics, security systems, or product feedback tools because of its modular architecture.""")
 
     st.divider()
 
@@ -193,8 +196,6 @@ def main():
 
 
     sidebar_controls()
-
-    st.divider()
 
     # Main tabs
     tab1, tab2, tab3 = st.tabs(["🔍 Analysis", "🎤 Demo", "ℹ️ About"])
