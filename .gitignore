@@ -1,1 +1,3 @@
 ravdess_dataset
+__pycache__
+*.pkl
