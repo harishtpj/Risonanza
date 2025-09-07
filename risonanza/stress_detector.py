@@ -3,9 +3,9 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
+import numpy as np
 import joblib, librosa
 
-from . import helpers
 from . import audio_feature as af
 
 class StressDetectorModel:
@@ -55,9 +55,14 @@ class StressDetectorModel:
         features = af.extract_features_from_signal(y, sr, n_mfcc=self.n_mfcc).reshape(1, -1)
         features_scaled = self.scaler.transform(features)
         pred = self.model.predict(features_scaled)
-        return self.label_encoder.inverse_transform(pred)[0]
+        pred_proba = self.model.predict_proba(features_scaled)[0]
+        
+        stress_wt = np.array([0., -1., -1., .8, 1., 1., .7, .3])
+        stress_prob = pred_proba @ stress_wt
+        stress_percent = ((stress_prob + 1) / 2) * 100
+        return self.label_encoder.inverse_transform(pred)[0], stress_percent
 
-    def save(self, model_path="voice_emotion_model.pkl"):
+    def save(self, model_path="stress_detection_model.pkl"):
         joblib.dump({
             "model": self.model,
             "label_encoder": self.label_encoder,
@@ -66,7 +71,7 @@ class StressDetectorModel:
         }, model_path)
         print(f"Model successfully saved to: {model_path}")
 
-    def load(self, model_path="voice_emotion_model.pkl"):
+    def load(self, model_path="stress_detection_model.pkl"):
         data = joblib.load(model_path)
         self.model = data["model"]
         self.label_encoder = data["label_encoder"]
