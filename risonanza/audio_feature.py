@@ -1,5 +1,7 @@
-import librosa
+import librosa, os, requests
 import numpy as np 
+from urllib.parse import urlparse
+from tkinter import filedialog, Tk
 
 #Initialize parameters
 SAMPLE_RATE = 22050  # Standard sample rate for audio processing
@@ -11,7 +13,7 @@ WINDOW_SIZE = 1024  # Window size for STFT
 FEATURE_NAMES = ['MFCC_Mean', 'MFCC_Delta', 'MFCC_Delta+Delta', 'Pitch_FFT', 'Spectral_Centroid', 'Spectral_Rolloff', 'Spectral_Bandwidth', 'RMS']
 
 #testing frontend 
-def select_audio_filr():
+def select_audio_file():
     """open file dialog to select audio file """
     root = Tk()
     root.withdraw()  # Hide the main window
@@ -120,9 +122,9 @@ def extract_pitch_fft(audio, sr=SAMPLE_RATE):
     pitches, _ = librosa.piptrack(y=audio, sr=sr)
     return np.mean(pitches[pitches > 0]) if np.any(pitches > 0) else 0
 
-# audio augmentation function 
+# audio augmentation functions
 
- def add_noise(y, noise_factor=0.005):
+def add_noise(y, noise_factor=0.005):
     noise = np.random.randn(len(y))
     return y + noise_factor * noise
 
@@ -139,9 +141,9 @@ def time_shift(y, shift_max=0.2):
     shift = int(np.random.uniform(-shift_max, shift_max) * len(y))
     return np.roll(y, shift)
     
-    #feature Extraction function 
+#feature Extraction function 
 
-   def extract_features_from_signal(y, sr, n_mfcc=40):
+def extract_features_from_signal(y, sr, n_mfcc=40):
     # MFCCs
     mfccs = extract_mfcc(y, sr, n_mfcc)
     mfccs_mean = np.mean(mfccs.T, axis=0)
@@ -156,7 +158,8 @@ def time_shift(y, shift_max=0.2):
         *extract_spectral_features(y, sr),
         rms
     ])
-#example usuage
+
+#example usage
 if __name__ == "__main__":
     print("Librosa audio processing module initialized")
     print(f"Sample rate: {SAMPLE_RATE} Hz")
