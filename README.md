@@ -2,8 +2,6 @@
 
 Risonanza is an open-source system for **automated, reliable stress and emotion detection from voice audio**, enabling real-time analysis with privacy, efficiency, and flexibility. Developed for the Bit-n-Build Hackathon, it demonstrates powerful ML on edge/consumer devices, without cloud dependencies.
 
----
-
 ## 📌 Problem Statement
 
 People frequently reveal their stress and emotions through their voice, but **traditional detection is subjective and unreliable**. Misinterpretation can lead to problems in critical areas like security, healthcare, and customer service.
@@ -11,7 +9,6 @@ People frequently reveal their stress and emotions through their voice, but **tr
 **Risonanza's mission:**  
 To deliver an accurate, automated system that analyzes voice patterns in real time, reliably detecting stress and emotions across diverse speakers and environments.
 
----
 
 ## 💡 Solution & Workflow
 
@@ -32,7 +29,6 @@ Risonanza combines feature-rich audio analysis with classical ML models in a str
    - Real-time, interactive analysis via Streamlit frontend
    - Visualization, feedback, and actionable insights
 
----
 
 ## 🔬 Technical Features
 
@@ -42,7 +38,6 @@ Risonanza combines feature-rich audio analysis with classical ML models in a str
 - **Open Source (MIT License):** Free for academia, research, and commercial use
 - **Scalable & Modular:** Easy integration into broader analytics systems
 
----
 
 ## 📦 File Structure
 
@@ -62,7 +57,6 @@ Risonanza/
     └── stress_detector.py      # ML model, stress probability logic
 ```
 
----
 
 ## 🗂️ How To Run / Usage Guide
 
@@ -99,7 +93,6 @@ streamlit run app.py
 - View emotion prediction, stress score, and audio visualizations
 - Check usage tips and real-world scenarios in the About tab
 
----
 
 ## ⚙️ Stress Mapping Logic
 
@@ -113,8 +106,6 @@ stress_percent = ((stress_score + 1) / 2) * 100
   - 0% → calmest  
   - 100% → highest stress
 
----
-
 ## 🎯 Real World Applications
 
 - Security: Suspicious behavior/anomaly voice detection
@@ -123,20 +114,14 @@ stress_percent = ((stress_score + 1) / 2) * 100
 - Robotics: Emotion-aware robot interaction
 - Workplace Wellness: Passive emotion/stress monitoring in high-pressure fields
 
----
-
 ## 👩‍💻 Contributors
 
 - Sai Srikar B
 - Shwetha Ram R
 - M.V. Harish Kumar
 
----
-
 ## 📜 License
 
 Risonanza is MIT Licensed. See [LICENSE](https://github.com/harishtpj/Risonanza/blob/ec20819dd5c49f3d9d1df118f545c6cbc85d7b5f/LICENSE) for details.
-
----
 
 *Inspired by a mission for reliable, privacy-respecting emotional analytics. Made for Bit-n-Build Hackathon, 2025 — The Valour Team.*
