@@ -1,7 +1,6 @@
 import librosa, os, requests
 import numpy as np 
 from urllib.parse import urlparse
-from tkinter import filedialog, Tk
 
 #Initialize parameters
 SAMPLE_RATE = 22050  # Standard sample rate for audio processing
@@ -161,6 +160,7 @@ def extract_features_from_signal(y, sr, n_mfcc=40):
 
 #example usage
 if __name__ == "__main__":
+    from tkinter import filedialog, Tk
     print("Librosa audio processing module initialized")
     print(f"Sample rate: {SAMPLE_RATE} Hz")
     print(f"Hop length: {HOP_LENGTH} samples")

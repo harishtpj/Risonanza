@@ -25,7 +25,12 @@ st.set_page_config(
 @st.cache_resource
 def load_model():
     model = sdm.StressDetectorModel()
-    model.load()
+    try:
+        model.load()
+    except:
+        dataset = h.load_dataset("ravdess_dataset")
+        model.train(*h.build_features(dataset))
+        model.save()
     return model
 
 # Model Initialization
