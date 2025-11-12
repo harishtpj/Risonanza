@@ -28,6 +28,7 @@ def load_model():
     try:
         model.load()
     except:
+        import setup_dataset
         dataset = h.load_dataset("ravdess_dataset")
         model.train(*h.build_features(dataset))
         model.save()
